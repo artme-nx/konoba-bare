@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konoba Bare — Prvić Šepurine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:    #F5F0E8;
+            --text:  #1C1C1C;
+            --blue:  #4A6FA5;
+            --terra: #B5623A;
+            --stone: #C8BFB0;
+            --white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── FADE ─────────────────────────────────── */
+
+        .fade {
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .fade.visible {
+            opacity: 1;
+        }
+
+        /* ─── HEADER ───────────────────────────────── */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 60px;
+            padding: 0 52px;
+            background: var(--bg);
+            border-bottom: 1px solid rgba(200, 191, 176, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.15rem;
+            color: var(--text);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+
+        .header-phone {
+            font-size: 0.83rem;
+            font-weight: 300;
+            color: var(--text);
+            text-decoration: none;
+            opacity: 0.5;
+        }
+
+        .header-phone:hover {
+            opacity: 0.9;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-sep {
+            font-size: 0.72rem;
+            color: var(--text);
+            opacity: 0.2;
+        }
+
+        .lang-btn {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+            opacity: 0.4;
+            padding: 0;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            color: var(--terra);
+        }
+
+        /* ─── BUTTONS ──────────────────────────────── */
+
+        .btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .btn {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            padding: 11px 22px;
+            border-radius: 3px;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: opacity 0.15s, background 0.15s, color 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            border-color: var(--blue);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.82;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border-color: var(--blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        /* Buttons on blue contact background */
+        .btns--on-blue {
+            justify-content: center;
+            margin-top: 32px;
+            margin-bottom: 0;
+        }
+
+        .btns--on-blue .btn-primary {
+            background: var(--white);
+            color: var(--blue);
+            border-color: var(--white);
+        }
+
+        .btns--on-blue .btn-primary:hover {
+            opacity: 0.88;
+        }
+
+        .btns--on-blue .btn-outline {
+            color: rgba(255, 255, 255, 0.72);
+            border-color: rgba(255, 255, 255, 0.38);
+        }
+
+        .btns--on-blue .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ─── HERO ─────────────────────────────────── */
+
+        .hero {
+            height: 70vh;
+            min-height: 520px;
+            padding: 0 52px;
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+        }
+
+        .hero-inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-wordmark {
+            line-height: 1;
+        }
+
+        .hero-w-konoba {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .hero-w-bare {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: clamp(5rem, 10.5vw, 8rem);
+            color: var(--text);
+            line-height: 0.9;
+            margin-bottom: 0;
+        }
+
+        .hero-fish {
+            display: block;
+            margin: 18px 0 22px;
+        }
+
+        .hero-tagline {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--terra);
+            line-height: 1.6;
+        }
+
+        .hero-placeholder {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-height: calc(70vh - 120px);
+            background: var(--stone);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 2.5px;
+            color: rgba(28, 28, 28, 0.3);
+        }
+
+        /* ─── STORY ────────────────────────────────── */
+
+        .story {
+            background: var(--white);
+            padding: 110px 52px;
+        }
+
+        .story-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .story-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .story-body {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1.95;
+            opacity: 0.78;
+        }
+
+        /* ─── FOOD ─────────────────────────────────── */
+
+        .food {
+            background: var(--stone);
+            padding: 110px 52px;
+        }
+
+        .food-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 64px;
+        }
+
+        .food-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.45rem;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .food-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text);
+            opacity: 0.68;
+            line-height: 1.8;
+        }
+
+        /* ─── CONTACT ──────────────────────────────── */
+
+        .contact {
+            background: var(--blue);
+            padding: 110px 52px;
+            text-align: center;
+        }
+
+        .contact-place {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+            color: var(--white);
+            margin-bottom: 22px;
+        }
+
+        .contact-info {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 14px;
+        }
+
+        .contact-info a {
+            color: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: var(--white);
+        }
+
+        .contact-note {
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 0.3px;
+        }
+
+        /* ─── FOOTER ───────────────────────────────── */
+
+        footer {
+            background: var(--bg);
+            border-top: 1px solid rgba(200, 191, 176, 0.5);
+            padding: 20px 52px;
+            text-align: center;
+            font-size: 0.73rem;
+            font-weight: 300;
+            color: var(--text);
+            opacity: 0.38;
+        }
+
+        /* ─── RESPONSIVE ───────────────────────────── */
+
+        @media (max-width: 840px) {
+
+            header {
+                padding: 0 22px;
+            }
+
+            .header-phone {
+                display: none;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 0;
+                padding: 60px 22px 52px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .hero-placeholder {
+                max-height: none;
+                aspect-ratio: 4 / 3;
+            }
+
+            .story {
+                padding: 72px 22px;
+            }
+
+            .story-inner {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .food {
+                padding: 72px 22px;
+            }
+
+            .food-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .contact {
+                padding: 72px 22px;
+            }
+
+            footer {
+                padding: 18px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Konoba Bare</div>
+    <div class="header-right">
+        <a href="tel:+38522448094" class="header-phone">+385 22 448 094</a>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="hr">HR</button>
+            <span class="lang-sep">·</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <span class="lang-sep">·</span>
+            <button class="lang-btn" data-lang="de">DE</button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-wordmark">
+                <span class="hero-w-konoba">Konoba</span>
+                <span class="hero-w-bare">Bare</span>
+            </div>
+
+            <!-- Dalmatinska riba — linijski crtež u stilu gravure -->
+            <svg class="hero-fish" width="80" height="44" viewBox="0 0 82 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M 5 22 C 9 10 28 4 50 10 C 62 14 68 19 68 22 C 68 25 62 30 50 34 C 28 40 9 34 5 22 Z" stroke="#4A6FA5" stroke-width="1.4"/>
+                <path d="M 68 22 L 80 10" stroke="#4A6FA5" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M 68 22 L 80 34" stroke="#4A6FA5" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M 80 10 Q 77 22 80 34" stroke="#4A6FA5" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M 32 7 C 38 0 48 0 52 8" stroke="#4A6FA5" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="19" cy="19" r="2.2" stroke="#4A6FA5" stroke-width="1.2"/>
+                <path d="M 36 8 C 34 14 34 20 36 27" stroke="#4A6FA5" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+                <path d="M 47 7 C 45 14 45 21 47 28" stroke="#4A6FA5" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+                <path d="M 57 12 C 55 17 55 22 57 27" stroke="#4A6FA5" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+
+            <div class="btns">
+                <a class="btn btn-primary"
+                   data-wa-type="stol"
+                   data-hr="Rezerviraj stol"
+                   data-en="Reserve a table"
+                   data-de="Tisch reservieren"
+                   href="#"
+                   target="_blank" rel="noopener">Rezerviraj stol</a>
+                <a class="btn btn-outline"
+                   data-wa-type="peka"
+                   data-hr="Naruči peku"
+                   data-en="Order peka"
+                   data-de="Peka bestellen"
+                   href="#"
+                   target="_blank" rel="noopener">Naruči peku</a>
+            </div>
+
+            <p class="hero-tagline"
+               data-hr="Na trgu gdje Šepurine žive cijelu godinu."
+               data-en="On the square where Šepurine lives all year."
+               data-de="Auf dem Platz, wo Šepurine das ganze Jahr lebt.">Na trgu gdje Šepurine žive cijelu godinu.</p>
+        </div>
+
+        <div class="hero-placeholder"
+             data-hr="[ trg ]"
+             data-en="[ trg ]"
+             data-de="[ trg ]">[ trg ]</div>
+    </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+    <div class="story-inner">
+        <p class="story-quote fade"
+           data-hr="Ovdje se kava pije polako."
+           data-en="Coffee is drunk slowly here."
+           data-de="Hier trinkt man Kaffee langsam.">Ovdje se kava pije polako.</p>
+        <p class="story-body fade"
+           data-hr="Konoba Bare stoji na glavnom trgu Šepurina — selu koje izgleda kao da je stalo u 17. stoljeću. Blijedosivi kamen, plavi kapci na prozorima, kamene ulice bez automobila. Cijeli otok je pod zaštitom Ministarstva kulture. A na tom trgu, svako jutro od kada pamtimo, počinje ovdje."
+           data-en="Konoba Bare stands on the main square of Šepurine — a village that looks as though time stopped in the 17th century. Pale grey stone, blue shutters, stone streets without cars. The whole island is a protected cultural monument. And on that square, every morning for as long as anyone can remember, it begins here."
+           data-de="Konoba Bare steht auf dem Hauptplatz von Šepurine — einem Dorf, das aussieht, als wäre die Zeit im 17. Jahrhundert stehengeblieben. Blassgrauer Stein, blaue Fensterläden, gepflasterte Straßen ohne Autos. Die gesamte Insel steht unter dem Schutz des Kulturministeriums. Und auf diesem Platz, jeden Morgen, seit wir uns erinnern können, beginnt es hier.">
+            Konoba Bare stoji na glavnom trgu Šepurina — selu koje izgleda kao da je stalo u 17. stoljeću. Blijedosivi kamen, plavi kapci na prozorima, kamene ulice bez automobila. Cijeli otok je pod zaštitom Ministarstva kulture. A na tom trgu, svako jutro od kada pamtimo, počinje ovdje.
+        </p>
+    </div>
+</section>
+
+<!-- FOOD -->
+<section class="food">
+    <div class="food-inner fade">
+        <div>
+            <p class="food-name"
+               data-hr="Pizza iz pećnice"
+               data-en="Wood-fired pizza"
+               data-de="Holzofenpizza">Pizza iz pećnice</p>
+            <p class="food-desc"
+               data-hr="Iz kamene pećnice. Tijesto se diže polako, peka ne žuri."
+               data-en="From the stone oven. The dough rises slowly, the baking doesn't rush."
+               data-de="Aus dem Steinofen. Der Teig geht langsam auf, das Backen hat keine Eile.">Iz kamene pećnice. Tijesto se diže polako, peka ne žuri.</p>
+        </div>
+        <div>
+            <p class="food-name"
+               data-hr="Peka po narudžbi"
+               data-en="Peka on order"
+               data-de="Peka auf Bestellung">Peka po narudžbi</p>
+            <p class="food-desc"
+               data-hr="Meso i povrće ispod peke. Naručiti par dana unaprijed."
+               data-en="Meat and vegetables under the bell. Order a few days ahead."
+               data-de="Fleisch und Gemüse unter der Peka-Glocke. Einige Tage vorher bestellen.">Meso i povrće ispod peke. Naručiti par dana unaprijed.</p>
+        </div>
+        <div>
+            <p class="food-name"
+               data-hr="Kava i piće"
+               data-en="Coffee &amp; drinks"
+               data-de="Kaffee &amp; Getränke">Kava i piće</p>
+            <p class="food-desc"
+               data-hr="Od prve jutarnje kave do večeri na trgu."
+               data-en="From the first morning coffee to evenings on the square."
+               data-de="Vom ersten Morgenkaffee bis zum Abend auf dem Platz.">Od prve jutarnje kave do večeri na trgu.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+    <p class="contact-place fade"
+       data-hr="Trg 2, Prvić Šepurine"
+       data-en="Trg 2, Prvić Šepurine"
+       data-de="Trg 2, Prvić Šepurine">Trg 2, Prvić Šepurine</p>
+    <p class="contact-info fade"
+       data-hr="Otvoreno cijelu godinu &nbsp;&middot;&nbsp; <a href='tel:+38522448094'>+385 22 448 094</a>"
+       data-en="Open all year &nbsp;&middot;&nbsp; <a href='tel:+38522448094'>+385 22 448 094</a>"
+       data-de="Ganzjährig geöffnet &nbsp;&middot;&nbsp; <a href='tel:+38522448094'>+385 22 448 094</a>">Otvoreno cijelu godinu &nbsp;&middot;&nbsp; <a href="tel:+38522448094">+385 22 448 094</a></p>
+    <p class="contact-note fade"
+       data-hr="Peka se naručuje unaprijed"
+       data-en="Peka must be ordered in advance"
+       data-de="Peka muss im Voraus bestellt werden">Peka se naručuje unaprijed</p>
+    <div class="btns btns--on-blue fade">
+        <a class="btn btn-primary"
+           data-wa-type="stol"
+           data-hr="Rezerviraj stol"
+           data-en="Reserve a table"
+           data-de="Tisch reservieren"
+           href="#"
+           target="_blank" rel="noopener">Rezerviraj stol</a>
+        <a class="btn btn-outline"
+           data-wa-type="peka"
+           data-hr="Naruči peku"
+           data-en="Order peka"
+           data-de="Peka bestellen"
+           href="#"
+           target="_blank" rel="noopener">Naruči peku</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span data-hr="© 2026 Konoba Bare, Prvić Šepurine"
+          data-en="© 2026 Konoba Bare, Prvić Šepurine"
+          data-de="© 2026 Konoba Bare, Prvić Šepurine">© 2026 Konoba Bare, Prvić Šepurine</span>
+</footer>
+
+<script>
+    const WA_PHONE = '38522448094';
+
+    const WA_MESSAGES = {
+        stol: {
+            hr: 'Pozdrav, želim rezervirati stol u Konoba Bare.',
+            en: 'Hello, I\'d like to reserve a table at Konoba Bare.',
+            de: 'Hallo, ich möchte einen Tisch in der Konoba Bare reservieren.'
+        },
+        peka: {
+            hr: 'Pozdrav, zanima me narudžba peke u Konoba Bare.',
+            en: 'Hello, I\'d like to order peka at Konoba Bare.',
+            de: 'Hallo, ich möchte Peka in der Konoba Bare bestellen.'
+        }
+    };
+
+    function waUrl(type, lang) {
+        const msg = WA_MESSAGES[type][lang];
+        return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(msg);
+    }
+
+    let currentLang = 'hr';
+    const langBtns = document.querySelectorAll('.lang-btn');
+
+    function setLang(lang) {
+        currentLang = lang;
+        langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        document.documentElement.lang = lang;
+
+        // Update all translatable text
+        document.querySelectorAll('[data-hr]').forEach(el => {
+            const val = el.dataset[lang];
+            if (val !== undefined) el.innerHTML = val;
+        });
+
+        // Update WhatsApp button hrefs
+        document.querySelectorAll('[data-wa-type]').forEach(btn => {
+            btn.href = waUrl(btn.dataset.waType, lang);
+        });
+    }
+
+    langBtns.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+
+    // Set initial WhatsApp URLs
+    setLang('hr');
+
+    // Fade on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
